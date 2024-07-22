@@ -1,0 +1,241 @@
+{
+    "setting": {},
+    "job": {
+        "setting": {
+            "speed": {
+                "channel": 2
+            }
+        },
+        "content": [
+            {
+                "reader": {
+                    "name": "mongodbreader",
+                    "parameter": {
+                        "address": ["43.136.43.226:27017"],
+                        "userName": "yuqing",
+                        "userPassword": "hdu123456",
+                        "dbName": "electron_spider",
+                        "collectionName": "60f51d97be4c12384e63a583/6589360de4b06c1ba266ce7f/weibosearch-1/微博/weiboComment",
+						"authDb": "admin",
+                        "column": [
+                            {
+                                "name":"_id",
+                                "type":"String"
+                            },
+                            {
+                                "name": "author_name",
+								"type": "string"
+                            },
+							{
+                                "name": "like_count",
+								"type": "Int64"
+                            },
+							{
+                                "name": "comment_count",
+								"type": "Int64"
+                            },
+							{
+                                "name": "content",
+								"type": "string"
+                            },
+							{
+                                "name": "author_id",
+								"type": "string"
+                            },
+							{
+                                "name": "publish_time",
+								"type": "Int64"
+                            },
+							{
+                                "name": "post_location",
+								"type": "string"
+                            },
+							{
+                                "name": "source_url",
+								"type": "string"
+                            },
+							{
+                                "name": "save_time",
+								"type": "string"
+                            },
+							{
+                                "name": "gather_time",
+								"type": "Int64"
+                            },
+							{
+                                "name": "data_provider",
+								"type": "string"
+                            },
+							{
+                                "name": "url",
+								"type": "string"
+                            },
+							{
+                                "name": "root_mid",
+								"type": "string"
+                            },
+							{
+                                "name": "root_author_id",
+								"type": "string"
+                            },
+							{
+                                "name": "root_author_name",
+								"type": "string"
+                            },
+							{
+                                "name": "mid",
+								"type": "string"
+                            },
+							{
+                                "name": "content_type",
+								"type": "Int32"
+                            },
+							{
+                                "name": "message_type",
+								"type": "Int32"
+                            },
+							{
+                                "name": "site_name",
+								"type": "string"
+                            },
+							{
+                                "name": "site_id",
+								"type": "string"
+                            },
+							{
+                                "name":"channel",
+                                "type":"Int32"
+                            },
+							{
+                                "name": "id",
+								"type": "string"
+                            }
+                        ],
+						"query":"{ \"gather_time\" : { \"$gt\" : ${lastTimeStamp}, \"$lte\" : ${currentTimeStamp}}}"
+                    }
+                },
+				
+				
+				
+                "writer": {
+                    "name": "hdfswriter",
+                    "parameter": {
+                        "column": [
+                            {
+                                "name":"_id",
+                                "type":"String"
+                            },
+                            {
+                                "name": "author_name",
+								"type": "string"
+                            },
+							{
+                                "name": "like_count",
+								"type": "bigint"
+                            },
+							{
+                                "name": "repost_count",
+								"type": "bigint"
+                            },
+							{
+                                "name": "content",
+								"type": "string"
+                            },
+							{
+                                "name": "author_id",
+								"type": "string"
+                            },
+							{
+                                "name": "publish_time",
+								"type": "bigint"
+                            },
+							{
+                                "name": "post_location",
+								"type": "string"
+                            },
+							{
+                                "name": "source_url",
+								"type": "string"
+                            },
+							{
+                                "name": "save_time",
+								"type": "string"
+                            },
+							{
+                                "name": "gather_time",
+								"type": "bigint"
+                            },
+							{
+                                "name": "data_provider",
+								"type": "string"
+                            },
+							{
+                                "name": "url",
+								"type": "string"
+                            },
+							{
+                                "name": "root_mid",
+								"type": "string"
+                            },
+							{
+                                "name": "root_author_id",
+								"type": "string"
+                            },
+							{
+                                "name": "root_author_name",
+								"type": "string"
+                            },
+							{
+                                "name": "mid",
+								"type": "string"
+                            },
+							{
+                                "name": "content_type",
+								"type": "int"
+                            },
+							{
+                                "name": "message_type",
+								"type": "int"
+                            },
+							{
+                                "name": "site_name",
+								"type": "string"
+                            },
+							{
+                                "name": "site_id",
+								"type": "string"
+                            },
+							{
+                                "name":"channel",
+                                "type":"int"
+                            },
+							{
+                                "name": "id",
+								"type": "string"
+                            }
+                        ],
+                        "compress": "gzip",
+                        "defaultFS": "hdfs://agent0:8020",
+                        "fieldDelimiter": "\t",
+                        "fileName": "weiboHotSearchCommentInfo",
+                        "fileType": "text",
+                        "path": "${targetdir}",
+                        "writeMode": "append"
+                    }
+                },
+				
+				"transformer": [
+							  {
+								"name": "dx_groovy",
+								"parameter": {
+								  "code": "Column column = record.getColumn(4);String oriValue = column.asString();String newValue = oriValue.replaceAll(\"[\\\\n\\\\r\\\\nc\\\\nd\\\\nL]\", \"\");record.setColumn(4, new StringColumn(newValue));return record;"
+									
+								}
+							  }
+							]
+				
+            }
+        ]
+    }
+}
+

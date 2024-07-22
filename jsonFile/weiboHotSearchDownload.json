@@ -1,0 +1,92 @@
+{
+    "setting": {},
+    "job": {
+        "setting": {
+            "speed": {
+                "channel": 2
+            }
+        },
+        "content": [
+            {
+                "reader": {
+                    "name": "mongodbreader",
+                    "parameter": {
+                        "address": ["43.136.43.226:27017"],
+                        "userName": "yuqing",
+                        "userPassword": "hdu123456",
+                        "dbName": "electron_spider",
+                        "collectionName": "60f51d97be4c12384e63a583/657faf6de4b03ce25fa423f6/bigdataTest-2/微博/weiboPostPage/media_download_info",
+						"authDb": "admin",
+                        "column": [
+                            {
+                                "name":"_id",
+                                "type":"String"
+                            },
+                            {
+                                "name":"source_url",
+                                "type":"String"
+                            },
+							{
+								"name":"local_path",
+                                "type":"String"
+							},
+							{
+								"name":"remote_path",
+                                "type":"String"
+							},
+							{
+								"name":"save_time",
+                                "type":"String"
+							},
+							{
+                                "name":"time_stamp",
+                                "type":"Int64"
+                            }
+							
+                        ],
+						"query":"{ \"time_stamp\" : { \"$gt\" : ${lastTimeStamp}, \"$lte\" : ${currentTimeStamp}}}"
+                    }
+                },
+                "writer": {
+                    "name": "hdfswriter",
+                    "parameter": {
+                        "column": [
+                            {
+                                "name":"_id",
+                                "type":"String"
+                            },
+                            {
+                                "name":"source_url",
+                                "type":"String"
+                            },
+							{
+								"name":"local_path",
+                                "type":"String"
+							},
+							{
+								"name":"remote_path",
+                                "type":"String"
+							},
+							{
+								"name":"save_time",
+                                "type":"String"
+							},
+							{
+                                "name":"time_stamp",
+                                "type":"bigint"
+                            }
+                        ],
+                        "compress": "gzip",
+                        "defaultFS": "hdfs://agent0:8020",
+                        "fieldDelimiter": "\t",
+                        "fileName": "weiboHotSearchDownload",
+                        "fileType": "text",
+                        "path": "/origin_data/yuqing/db/ods_weibo_hotsearch_download_inc/2023-12-16",
+                        "writeMode": "append"
+                    }
+                }
+            }
+        ]
+    }
+}
+

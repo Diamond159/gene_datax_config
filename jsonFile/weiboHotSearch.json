@@ -1,0 +1,98 @@
+{
+	"setting": {},
+	"job": {
+		"setting": {
+				"speed": {
+					"channel": 2
+				}
+			},
+		"content": [{
+				"reader": {
+					"name": "mongodbreader",
+					"parameter": {
+						"address": ["43.136.43.226:27017"],
+                        "userName": "yuqing",
+                        "userPassword": "hdu123456",
+                        "dbName": "electron_spider",
+						"collectionName": "60f51d97be4c12384e63a583/6589360de4b06c1ba266ce7f/weibosearch-1/微博/weiboSearch",
+						"authDb": "admin",
+						"column": [{
+								"name": "_id",
+								"type": "string"
+							}, {
+								"name": "url",
+								"type": "string"
+							}, {
+								"name": "theme",
+								"type": "string"
+							},{
+								"name": "gather_time",
+								"type": "long"
+							}, {
+								"name": "source_url",
+								"type": "string"
+							}, {
+								"name": "source",
+								"type": "string"
+							}, {
+								"name": "root_url",
+								"type": "string"
+							}, {
+								"name": "user_url",
+								"type": "string"
+							}
+						],
+						"query":"{ \"gather_time\" : { \"$gt\" : ${lastTimeStamp}, \"$lte\" : ${currentTimeStamp}}}"
+					}
+				},
+				"writer": {
+					"name": "hdfswriter",
+					"parameter": {
+						"column": [{
+								"name": "_id",
+								"type": "STRING"
+							},{
+								"name": "url",
+								"type": "STRING"
+							}, {
+								"name": "theme",
+								"type": "STRING"
+							}, {
+								"name": "gather_time",
+								"type": "BIGINT"
+							},  {
+								"name": "source_url",
+								"type": "STRING"
+							}, {
+								"name": "source",
+								"type": "string"
+							}, {
+								"name": "root_url",
+								"type": "string"
+							}, {
+								"name": "user_url",
+								"type": "string"
+							}
+						],
+						"compress": "gzip",
+						"defaultFS": "hdfs://agent0:8020",
+						"fieldDelimiter": "\t",
+						"fileName": "weiboHotSearch",
+						"fileType": "text",
+						"path": "${targetdir}",
+						"writeMode": "append"
+					}
+				},
+				"transformer": [
+							  {
+								"name": "dx_genetheme",
+								"parameter": {
+								  "columnIndex": 4,
+								  "paras":["2"]
+								}
+							  }
+							]
+			}
+		]
+	}
+}

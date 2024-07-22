@@ -1,0 +1,214 @@
+{
+    "setting": {},
+    "job": {
+        "setting": {
+            "speed": {
+                "channel": 2
+            }
+        },
+        "content": [
+            {
+                "reader": {
+                    "name": "mongodbreader",
+                    "parameter": {
+                        "address": ["43.136.43.226:27017"],
+                        "userName": "yuqing",
+                        "userPassword": "hdu123456",
+                        "dbName": "electron_spider",
+                        "collectionName": "60f51d97be4c12384e63a583/657faf6de4b03ce25fa423f6/bigdataTest-2/微博/weiboUserInfo",
+						"authDb": "admin",
+                        "column": [
+                            {
+                                "name":"_id",
+                                "type":"String"
+                            },
+                            {
+                                "name":"name",
+                                "type":"String"
+                            },
+							{
+                                "name":"followers_count",
+                                "type":"Int64"
+                            },
+							{
+                                "name":"friends_count",
+                                "type":"Int64"
+                            },
+							{
+                                "name": "verified_info",
+								"type": "string"
+                            },
+							{
+                                "name": "verified",
+								"type": "boolean"
+                            },
+							{
+                                "name": "profile_image_url",
+								"type": "string"
+                            },
+							{
+                                "name": "register_time",
+								"type": "Int64"
+                            },
+							{
+                                "name": "ip_home",
+								"type": "string"
+                            },
+							{
+                                "name": "uid",
+								"type": "Int64"
+                            },
+							{
+                                "name": "statues_count",
+								"type": "Int64"
+                            },
+							{
+                                "name": "description",
+								"type": "string"
+                            },
+							{
+                                "name": "birthday",
+								"type": "string"
+                            },
+							{
+                                "name": "gender",
+								"type": "string"
+                            },
+							{
+                                "name": "source_url",
+								"type": "string"
+                            },
+							{
+                                "name": "save_time",
+								"type": "string"
+                            },
+							{
+                                "name": "gather_time",
+								"type": "Int64"
+                            },
+							{
+                                "name": "data_provider",
+								"type": "string"
+                            },
+							{
+                                "name": "site_name",
+								"type": "string"
+                            },
+							{
+                                "name": "site_id",
+								"type": "string"
+                            },
+							{
+                                "name":"channel",
+                                "type":"Int32"
+                            }
+                        ],
+						"query":"{ \"gather_time\" : { \"$gt\" : ${lastTimeStamp}, \"$lte\" : ${currentTimeStamp}}}"
+                    }
+                },
+				
+				
+				
+                "writer": {
+                    "name": "hdfswriter",
+                    "parameter": {
+                        "column": [
+                            {
+                                "name":"_id",
+                                "type":"String"
+                            },
+                            {
+                                "name":"name",
+                                "type":"String"
+                            },
+							{
+                                "name":"followers_count",
+                                "type":"bigint"
+                            },
+							{
+                                "name":"friends_count",
+                                "type":"bigint"
+                            },
+							{
+                                "name": "verified_info",
+								"type": "string"
+                            },
+							{
+                                "name": "verified",
+								"type": "boolean"
+                            },
+							{
+                                "name": "profile_image_url",
+								"type": "string"
+                            },
+							{
+                                "name": "register_time",
+								"type": "bigint"
+                            },
+							{
+                                "name": "ip_home",
+								"type": "string"
+                            },
+							{
+                                "name": "uid",
+								"type": "bigint"
+                            },
+							{
+                                "name": "statues_count",
+								"type": "int"
+                            },
+							{
+                                "name": "description",
+								"type": "string"
+                            },
+							{
+                                "name": "birthday",
+								"type": "string"
+                            },
+							{
+                                "name": "gender",
+								"type": "string"
+                            },
+							{
+                                "name": "source_url",
+								"type": "string"
+                            },
+							{
+                                "name": "save_time",
+								"type": "string"
+                            },
+							{
+                                "name": "gather_time",
+								"type": "bigint"
+                            },
+							{
+                                "name": "data_provider",
+								"type": "string"
+                            },
+							{
+                                "name": "site_name",
+								"type": "string"
+                            },
+							{
+                                "name": "site_id",
+								"type": "string"
+                            },
+							{
+                                "name":"channel",
+                                "type":"int"
+                            }
+                        ],
+                        "compress": "gzip",
+                        "defaultFS": "hdfs://agent0:8020",
+                        "fieldDelimiter": "\t",
+                        "fileName": "weiboHotSearchUserInfo",
+                        "fileType": "text",
+                        "path": "${targetdir}",
+                        "writeMode": "append"
+                    }
+                }
+            }
+        ]
+    }
+}
+
