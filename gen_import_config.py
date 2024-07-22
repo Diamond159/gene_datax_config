@@ -93,7 +93,7 @@ class gen_import_config(object):
                     "reader": {
                         "name": "mongodbreader",
                         "parameter": {
-                            "address": ["43.136.43.226:27017"],
+                            "address": ["106.53.83.93:27017"],
                             "userName": "yuqing",
                             "userPassword": "hdu123456",
                             "dbName": database,
@@ -128,7 +128,7 @@ class gen_import_config(object):
 if __name__ == '__main__':
     client = gen_import_config(user, password, auth_db, port, ip, connect_db)
     cc = "60f51d97be4c12384e63a583/65a5ea87e4b080774a5070eb/testYoutube-1/油管/youtubePostPage"
-    tt = "60f51d97be4c12384e63a583/652bc5a613e9f5cca9a64c1f/bigdataTest1015-7/微博/weiboSearch"
+    # tt = "60f51d97be4c12384e63a583/652bc5a613e9f5cca9a64c1f/bigdataTest1015-7/微博/weiboSearch"
     # res = client.get_mongo_columns(cc)
     # res2 = client.get_hive_columns(cc)
     # print(res)
