@@ -11,7 +11,7 @@
                 "reader": {
                     "name": "mongodbreader",
                     "parameter": {
-                        "address": ["43.136.43.226:27017"],
+                        "address": ["106.53.83.93:27017"],
                         "userName": "yuqing",
                         "userPassword": "hdu123456",
                         "dbName": "electron_spider",
